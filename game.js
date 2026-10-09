@@ -12,10 +12,10 @@ class Ball {
         this.speedY = speedY; 
     } 
  
-    draw() { 
+    draw(color) { 
         ctx.beginPath(); 
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); 
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = color;
          ctx.fill(); 
         ctx.closePath(); 
     } 
@@ -68,7 +68,7 @@ class Paddle {
             this.y -= this.speed; 
         } 
         else if (ball.y > this.y + this.height / 2) { 
-            this.y += this.speed; 
+            this.y += this.speed+3; 
         } 
     } 
 } 
@@ -76,7 +76,11 @@ class Paddle {
 // Clase Game (Controla el juego) 
 class Game { 
     constructor() { 
-        this.ball1 = new Ball(canvas.width / 2, canvas.height / 2, 10, 4, 4);
+        this.ball = new Ball(canvas.width / 2, canvas.height / 2, 20, 3, 4);
+        this.ball2 = new Ball(canvas.width / 2, canvas.height / 2, 10, 7, 3);
+        this.ball3 = new Ball(canvas.width / 2, canvas.height / 2, 30, 1, 5);
+        this.ball4 = new Ball(canvas.width / 2, canvas.height / 2, 5, 8, 2);
+        this.ball5 = new Ball(canvas.width / 2, canvas.height / 2, 13, 4, 4);
 
         this.paddle1 = new Paddle(0, canvas.height / 2 - 50, 10, 200, true); // jugador 
         this.paddle2 = new Paddle(canvas.width - 10, canvas.height / 2 - 50, 10, 100); // CPU 
@@ -85,14 +89,22 @@ class Game {
  
     draw() { 
         ctx.clearRect(0, 0, canvas.width, canvas.height); 
-        this.ball1.draw(); 
+        this.ball.draw("green"); 
+        this.ball2.draw("red");
+        this.ball3.draw("white");
+        this.ball4.draw("brown")
+        this.ball5.draw("grey");
 
         this.paddle1.draw("yellow"); 
-        this.paddle2.draw(); 
+        this.paddle2.draw("blue"); 
     } 
  
     update() { 
-        this.ball1.move(); 
+        this.ball.move();
+        this.ball2.move(); 
+        this.ball3.move();
+        this.ball4.move(); 
+        this.ball5.move();
 
  
         // Movimiento de la paleta 1 (Jugador) controlado por teclas 
@@ -121,6 +133,74 @@ class Game {
         if (this.ball.x - this.ball.radius <= 0 || this.ball.x + this.ball.radius >= canvas.width) { 
             this.ball.reset(); 
         } 
+
+        //
+         if (this.ball2.x - this.ball2.radius <= this.paddle1.x + this.paddle1.width && 
+            this.ball2.y >= this.paddle1.y && this.ball2.y <= this.paddle1.y + this.paddle1.height) { 
+            this.ball2.speedX = -this.ball2.speedX; 
+        } 
+ 
+        if (this.ball2.x + this.ball2.radius >= this.paddle2.x && 
+            this.ball2.y >= this.paddle2.y && this.ball2.y <= this.paddle2.y + this.paddle2.height) { 
+            this.ball2.speedX = -this.ball2.speedX; 
+        } 
+ 
+        // Detectar cuando la pelota sale de los bordes (punto marcado) 
+        if (this.ball2.x - this.ball2.radius <= 0 || this.ball2.x + this.ball2.radius >= canvas.width) { 
+            this.ball2.reset(); 
+        } 
+
+        //
+         if (this.ball3.x - this.ball3.radius <= this.paddle1.x + this.paddle1.width && 
+            this.ball3.y >= this.paddle1.y && this.ball3.y <= this.paddle1.y + this.paddle1.height) { 
+            this.ball3.speedX = -this.ball3.speedX; 
+        } 
+ 
+        if (this.ball3.x + this.ball3.radius >= this.paddle2.x && 
+            this.ball3.y >= this.paddle2.y && this.ball3.y <= this.paddle2.y + this.paddle2.height) { 
+            this.ball3.speedX = -this.ball3.speedX; 
+        } 
+ 
+        // Detectar cuando la pelota sale de los bordes (punto marcado) 
+        if (this.ball3.x - this.ball3.radius <= 0 || this.ball3.x + this.ball3.radius >= canvas.width) { 
+            this.ball3.reset(); 
+        } 
+
+        //
+         if (this.ball4.x - this.ball4.radius <= this.paddle1.x + this.paddle1.width && 
+            this.ball4.y >= this.paddle1.y && this.ball4.y <= this.paddle1.y + this.paddle1.height) { 
+            this.ball4.speedX = -this.ball4.speedX; 
+        } 
+ 
+        if (this.ball4.x + this.ball4.radius >= this.paddle2.x && 
+            this.ball4.y >= this.paddle2.y && this.ball4.y <= this.paddle2.y + this.paddle2.height) { 
+            this.ball4.speedX = -this.ball4.speedX; 
+        } 
+ 
+        // Detectar cuando la pelota sale de los bordes (punto marcado) 
+        if (this.ball4.x - this.ball4.radius <= 0 || this.ball4.x + this.ball4.radius >= canvas.width) { 
+            this.ball4.reset(); 
+        } 
+
+        //
+         if (this.ball5.x - this.ball5.radius <= this.paddle1.x + this.paddle1.width && 
+            this.ball5.y >= this.paddle1.y && this.ball5.y <= this.paddle1.y + this.paddle1.height) { 
+            this.ball5.speedX = -this.ball5.speedX; 
+        } 
+ 
+        if (this.ball5.x + this.ball5.radius >= this.paddle2.x && 
+            this.ball5.y >= this.paddle2.y && this.ball5.y <= this.paddle2.y + this.paddle2.height) { 
+            this.ball5.speedX = -this.ball5.speedX; 
+        } 
+ 
+        // Detectar cuando la pelota sale de los bordes (punto marcado) 
+        if (this.ball5.x - this.ball5.radius <= 0 || this.ball5.x + this.ball5.radius >= canvas.width) { 
+            this.ball5.reset(); 
+        } 
+
+        //
+
+
     } 
  
     // Captura de teclas para el control de la paleta 
