@@ -48,8 +48,8 @@ class Paddle {
         this.speed = 5; 
     } 
  
-    draw() { 
-        ctx.fillStyle = 'white'; 
+    draw(color) { 
+        ctx.fillStyle = color; 
         ctx.fillRect(this.x, this.y, this.width, this.height); 
     } 
  
@@ -76,21 +76,24 @@ class Paddle {
 // Clase Game (Controla el juego) 
 class Game { 
     constructor() { 
-        this.ball = new Ball(canvas.width / 2, canvas.height / 2, 10, 4, 4); 
-        this.paddle1 = new Paddle(0, canvas.height / 2 - 50, 10, 100, true); // jugador 
+        this.ball1 = new Ball(canvas.width / 2, canvas.height / 2, 10, 4, 4);
+
+        this.paddle1 = new Paddle(0, canvas.height / 2 - 50, 10, 200, true); // jugador 
         this.paddle2 = new Paddle(canvas.width - 10, canvas.height / 2 - 50, 10, 100); // CPU 
         this.keys = {}; // Para capturar las teclas 
     } 
  
     draw() { 
         ctx.clearRect(0, 0, canvas.width, canvas.height); 
-        this.ball.draw(); 
-        this.paddle1.draw(); 
+        this.ball1.draw(); 
+
+        this.paddle1.draw("yellow"); 
         this.paddle2.draw(); 
     } 
  
     update() { 
-        this.ball.move(); 
+        this.ball1.move(); 
+
  
         // Movimiento de la paleta 1 (Jugador) controlado por teclas 
         if (this.keys['ArrowUp']) { 
